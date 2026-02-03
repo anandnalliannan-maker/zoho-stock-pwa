@@ -11,11 +11,13 @@ export async function GET(req) {
     );
   }
 
+  const redirectUri = new URL("/api/zoho/callback", req.url).toString();
+
   const params = new URLSearchParams({
     code,
     client_id: process.env.ZOHO_CLIENT_ID,
     client_secret: process.env.ZOHO_CLIENT_SECRET,
-    redirect_uri: "http://localhost:3001/api/zoho/callback",
+    redirect_uri: redirectUri,
     grant_type: "authorization_code",
   });
 
