@@ -28,7 +28,14 @@ function detectColumns(sampleRecord) {
 
   // You can tweak candidate lists once you see actual keys from your sheet.
   return {
-    engineNo: pick(["engineno", "engine#", "engine", "enginennumber", "enginenumber"]),
+    frameNo: pick([
+      "framnumber",
+      "frame",
+      "framenumber",
+      "frameno",
+      "frameno.",
+      "frame#",
+    ]),
     type: pick(["type", "mc/sc", "mcsc", "modelcategory", "vehicle", "vehicletype", "vechicle"]),
     model: pick(["model", "modelname", "modelnames"]),
     variant: pick(["variant", "variantname", "modelvariant"]),
@@ -79,7 +86,7 @@ export async function GET(req) {
     const col = detectColumns(records[0]);
 
     // If detection fails, return keys so we can fix mapping fast
-    const required = ["engineNo", "model", "variant", "color", "location", "executive"];
+    const required = ["frameNo", "model", "variant", "color", "location", "executive"];
     const missing = required.filter((r) => !col[r]);
 
     // NOTE: even if some missing, we can still proceed, but results may be empty.
@@ -128,7 +135,7 @@ export async function GET(req) {
     // 5) Final results (only required columns)
     const results = step5
       .map((rec) => ({
-        engineNumber: s(getField(rec, col.engineNo)),
+        frameNumber: s(getField(rec, col.frameNo)),
         color: s(getField(rec, col.color)),
         location: s(getField(rec, col.location)),
         executiveName: s(getField(rec, col.executive)),
@@ -136,7 +143,7 @@ export async function GET(req) {
         model: s(getField(rec, col.model)),
         variant: s(getField(rec, col.variant)),
       }))
-      .filter((r) => r.engineNumber)
+      .filter((r) => r.frameNumber)
       .sort((a, b) => a.color.localeCompare(b.color)); // keep only rows with engine no
 
     return NextResponse.json({

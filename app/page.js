@@ -179,10 +179,10 @@ export default function Home() {
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <p className="text-xs uppercase tracking-[0.25em] text-slate-400">
-                    Engine No
+                    Frame No
                   </p>
                   <p className="text-lg font-semibold text-slate-900">
-                    {row.engineNumber}
+                    {row.frameNumber}
                   </p>
                 </div>
                 <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
