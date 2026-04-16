@@ -50,6 +50,10 @@ If `CRON_SECRET` is set, the sync route requires either:
 - `Authorization: Bearer <CRON_SECRET>`
 - `?key=<CRON_SECRET>`
 
+Deployment note:
+
+- Vercel production must be on commit `7f4bc2c` or later for the Supabase-backed flow.
+
 ## Local development
 
 ```bash
